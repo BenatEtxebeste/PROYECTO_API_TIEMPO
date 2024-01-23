@@ -5,13 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-
 </head>
 
 <body>
@@ -41,145 +39,11 @@
         </div>
         <div id="carousel"></div>
     </section>
-    <script>
-        var map = L.map('mapa').setView([43.3, -2.3], 10);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
-        var lugares = [
-            { "nombre": "Irun", "latitud": 43.3390, "longitud": -1.7896 },
-            { "nombre": "Donosti", "latitud": 43.3183, "longitud": -1.9812 },
-            { "nombre": "Orereta", "latitud": 43.3119, "longitud": -1.8985 },
-            { "nombre": "Bilbo", "latitud": 43.2631, "longitud": -2.9360 }
-        ];
-        const carrusel = document.getElementById("carousel");
-        let contenidoCarousel = ``;
-        lugares.forEach(lugar => {
-            contenidoCarousel += `<div class="card ${lugar.nombre}" style="display: none;">
-                            <div class="cardTitle">
-                                <h1>${lugar.nombre}</h1>
-                            </div>
-                            <div class="informacion">
-                                <div class="temperatura">
-                                    <img src="imagenes/temperatura.png" alt="">
-                                    <p>${lugar.latitud}</p>
-                                </div>
-                                <div class="humedad">
-                                    <img src="imagenes/humedad.png" alt="">
-                                    <p>${lugar.longitud}</p>
-                                </div>
-                            </div>
-                            <button onclick="crearGrafico('myChart-${lugar.nombre}')">GRAFICO</button>
-                            <div>
-                                <canvas id="myChart-${lugar.nombre}" style="display: none;"></canvas>
-                            </div>
-                          </div>`
-            var marker = L.marker([lugar.latitud, lugar.longitud]).addTo(map);
-            marker.bindTooltip(lugar.nombre, {
-                permanent: false,    // El tooltip no será permanente
-                direction: 'top',    // Se mostrará encima del marcador
-                offset: L.point(-15, -10) // Desplazamiento del tooltip respecto al marcador
-            })
-            marker.on('click', function () {
-                cards = document.getElementsByClassName("card")
-                for (let card of cards) {
-                    if (lugar.nombre === card.className.split("card ")[1]) {
-                        if (card.style.display == "none") {
-                            card.style.display = "block"
-                        } else {
-                            card.style.display = "none"
-                        }
-                    }
-                }
-            })
-        });
 
-        carrusel.innerHTML = contenidoCarousel;
-
-        $("#precipitacion, #viento, #nubes").on('dragstart', function (event) {
-            event.originalEvent.dataTransfer.setData("dato", event.target.id);
-        });
-
-        $(".card").on("dragover", function (event) {
-            event.preventDefault();
-        })
-
-        $(".card").on("drop", function (event) {
-            event.preventDefault();
-            dato = event.originalEvent.dataTransfer.getData("dato");
-            nombreCard = this.className;
-            mostrarInfo(dato, nombreCard);
-        })
-
-        function mostrarInfo(dato, nombreCard) {
-            const carta = document.getElementsByClassName(nombreCard)[0]
-            const info = carta.getElementsByClassName('informacion')[0]
-            let contenidoCard = info.innerHTML
-            switch (dato) {
-                case "precipitacion":
-                    if (carta.getElementsByClassName('precipitacion').length == 0) {
-                        contenidoCard += `
-                            <div class="precipitacion">
-                                <img src="imagenes/precipitacion.png" alt="">
-                                <p>10</p>
-                            </div>`
-                    }
-                    break;
-                case "viento":
-                    if (carta.getElementsByClassName('viento').length === 0) {
-                        contenidoCard += `
-                            <div class="viento">
-                                <img src="imagenes/viento.png" alt="">
-                                <p>10</p>
-                            </div>`
-                    }
-                    break;
-                case "nubes":
-                    if (carta.getElementsByClassName('nubes').length === 0) {
-                        contenidoCard += `
-                            <div class="nubes">
-                                <img src="imagenes/nubes.png" alt="">
-                                <p>10</p>
-                            </div>`
-                    }
-                    break;
-                default:
-                    break;
-            }
-            info.innerHTML = contenidoCard
-        }
-
-        function crearGrafico(chartId) {
-            const ctx = document.getElementById(chartId);
-
-            const graficoCreado = Chart.getChart(ctx);
-
-            if (graficoCreado) {
-                graficoCreado.destroy();
-            }
-
-            ctx.style.display = (ctx.style.display === "none") ? "block" : "none";
-
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                    datasets: [{
-                        label: '# of Votes',
-                        data: [12, 19, 3, 5, 2, 3],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        }
-    </script>
+    <script src="js/mapa.js"></script>
+    <script src="js/lugares.js"></script>
+    <script src="js/cartas.js"></script>
+    <script src="js/grafico.js"></script>
 </body>
 
 </html>
