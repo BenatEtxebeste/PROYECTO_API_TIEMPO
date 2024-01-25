@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/login.css">
+    <script src="js/login.js"></script>
 </head>
 
 <body>
     <div class="formulario">
-        <form action="">
-            <label for="">Email:</label><br>
-            <input type="text" name="email" id="inputEmail"><br>
+        <form onsubmit="return LogIn(event)">
+            <label for="">Nombre:</label><br>
+            <input type="text" name="nombre" id="inputNombre"><br>
             <label for="">Contraseña:</label><br>
             <input type="password" name="contraseña" id="inputContraseña"><br>
             <input type="checkbox" name="recordar" id="inputRecordar">

@@ -1,9 +1,9 @@
-version: '3.2'
+version: '3.9'
 services:
   apache1:
     image: httpd:latest
     volumes:
-    - ./home.html:/usr/local/apache2/htdocs/index.html
+    - ./FRONTEND:/usr/local/apache2/htdocs
     ports:
     - "8081:80"
 
@@ -17,7 +17,12 @@ services:
   APIWeb:
     image: docker.io/bitnami/laravel:10
     volumes:
-    - './APIWeb/:/app'
+    - ./APIWeb/:/app
+    environment:
+    - DB_HOST=185.60.40.210
+    - DB_PORT=3306
+    - DB_USERNAME=Beñat
+    - DB_PASSWORD=12345678
+    - DB_DATABASE=Beñat
     ports:
-    - "8085:80"
-    
+    - "8085:8000"
