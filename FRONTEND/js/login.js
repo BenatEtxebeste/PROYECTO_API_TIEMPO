@@ -70,14 +70,6 @@ function LogOut(event) {
         },
     }
     fetch("http://localhost:8085/api/logout", config)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("La solicitud no se pudo completar correctamente.");
-            }
-            return response.json();
-        })
-        .then(data => {
-            window.location.assign("login.html")
-        })
-        .catch(error => console.log(error))
+    localStorage.removeItem("token")
+    window.location.assign("login.html")
 }
