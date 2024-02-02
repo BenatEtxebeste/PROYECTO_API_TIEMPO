@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\LugarHistoricoController;
 use App\Http\Controllers\LugarController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ProductController;
@@ -18,9 +19,9 @@ use App\Http\Controllers\ProductController;
 |
 */
 
+Route::get('historico/select', [LugarHistoricoController::class, 'index']);
+
 Route::get('select', [LugarController::class, 'index']);
-Route::post('update', [LugarController::class, 'update']);
-Route::post('insert', [LugarController::class, 'store']);
 
 Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [RegisterController::class, 'login']);
