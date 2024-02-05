@@ -19,11 +19,11 @@ services:
     volumes:
     - ./APIWeb/:/app
     environment:
-    - DB_HOST=185.60.40.210
+    - DB_HOST=mysql
     - DB_PORT=3306
-    - DB_USERNAME=Beñat
+    - DB_USERNAME=Benat
     - DB_PASSWORD=12345678
-    - DB_DATABASE=Beñat
+    - DB_DATABASE=Benat
     ports:
     - "8085:8000"
 
@@ -32,11 +32,31 @@ services:
     volumes:
     - ./CapturaDatos/:/app
     environment:
-    - DB_HOST=185.60.40.210
+    - DB_HOST=mysql
     - DB_PORT=3306
-    - DB_USERNAME=Beñat
+    - DB_USERNAME=Benat
     - DB_PASSWORD=12345678
-    - DB_DATABASE=Beñat
+    - DB_DATABASE=Benat
     ports:
     - "8086:8000"
     command: ["php", "artisan", "schedule:work"]
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: 'Benat'
+      MYSQL_USER: 'Benat'
+      MYSQL_PASSWORD: '12345678'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - './BBDD/:/var/lib/mysql'
+  phpmyadmin:
+        image: 'phpmyadmin:latest'
+        ports:
+            - 8084:80
+        environment:
+            - PMA_ARBITRARY=1

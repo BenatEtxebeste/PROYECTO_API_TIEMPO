@@ -12,7 +12,7 @@ fetch("http://localhost:8085/api/select")
         const carrusel = document.getElementById("carousel");
         let contenidoCarousel = ``;
         lugares.forEach(lugar => {
-            contenidoCarousel += `<div class="card ${lugar.nombre}" style="display: none;">
+            contenidoCarousel += `<div class="card ${lugar.nombre}" onmouseover="${mostrarTooltip(lugar.nombre)}" style="display: none;">
                             <div class="cardTitle">
                                 <h1>${lugar.nombre}</h1>
                             </div>
@@ -62,21 +62,6 @@ fetch("http://localhost:8085/api/select")
             })
         });
 
-        verLocalStorage()
-
-        function verLocalStorage() {
-            cards = document.getElementsByClassName("card")
-            lugares = localStorage.getItem("carta");
-            if (lugares !== null) {
-                storage = lugares.split(",");
-                for (let card of cards) {
-                    if (storage.includes(card.className.split("card ")[1])) {
-                        card.style.display = "block"
-                    }
-                }
-            }
-        }
-
         $("#precipitacion, #viento").on('dragstart', function (event) {
             event.originalEvent.dataTransfer.setData("dato", event.target.id);
         });
@@ -125,5 +110,20 @@ fetch("http://localhost:8085/api/select")
                     break;
             }
             info.innerHTML = contenidoCard
+        }
+
+        verLocalStorage()
+
+        function verLocalStorage() {
+            cards = document.getElementsByClassName("card")
+            lugares = localStorage.getItem("carta");
+            if (lugares !== null) {
+                storage = lugares.split(",");
+                for (let card of cards) {
+                    if (storage.includes(card.className.split("card ")[1])) {
+                        card.style.display = "block"
+                    }
+                }
+            }
         }
     })
