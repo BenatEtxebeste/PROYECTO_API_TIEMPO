@@ -12,18 +12,18 @@ fetch("http://localhost:8085/api/select")
         const carrusel = document.getElementById("carousel");
         let contenidoCarousel = ``;
         lugares.forEach(lugar => {
-            contenidoCarousel += `<div class="card ${lugar.nombre}" onmouseover="${mostrarTooltip(lugar.nombre)}" style="display: none;">
+            contenidoCarousel += `<div class="card ${lugar.nombre}" style="display: none;">
                             <div class="cardTitle">
                                 <h1>${lugar.nombre}</h1>
                             </div>
                             <div class="informacion">
                                 <div class="temperatura">
                                     <img src="imagenes/temperatura.png" alt="">
-                                    <p>${lugar.temperatura}</p>
+                                    <p class="datoTemperatura">${lugar.temperatura}</p>
                                 </div>
                                 <div class="humedad">
                                     <img src="imagenes/humedad.png" alt="">
-                                    <p>${lugar.humedad}</p>
+                                    <p class="datoHumedad">${lugar.humedad}</p>
                                 </div>
                             </div>
                             <button onclick="crearGrafico('myChart-${lugar.nombre}')">GRAFICO</button>
@@ -62,6 +62,8 @@ fetch("http://localhost:8085/api/select")
             })
         });
 
+        mostrarTooltip()
+
         $("#precipitacion, #viento").on('dragstart', function (event) {
             event.originalEvent.dataTransfer.setData("dato", event.target.id);
         });
@@ -93,7 +95,7 @@ fetch("http://localhost:8085/api/select")
                         contenidoCard += `
                             <div class="precipitacion">
                                 <img src="imagenes/precipitacion.png" alt="">
-                                <p>${lugarCarta.precipitacion}</p>
+                                <p class="datoPrecipitacion">${lugarCarta.precipitacion}</p>
                             </div>`
                     }
                     break;
@@ -102,7 +104,7 @@ fetch("http://localhost:8085/api/select")
                         contenidoCard += `
                             <div class="viento">
                                 <img src="imagenes/viento.png" alt="">
-                                <p>${lugarCarta.viento}</p>
+                                <p class="datoViento">${lugarCarta.viento}</p>
                             </div>`
                     }
                     break;
@@ -110,6 +112,43 @@ fetch("http://localhost:8085/api/select")
                     break;
             }
             info.innerHTML = contenidoCard
+        }
+
+        // setInterval(() => {
+            actualizarDatos()
+        // },3000);
+
+        function actualizarDatos() {
+            fetch("http://localhost:8085/api/select")
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("La solicitud no se pudo completar correctamente.");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    lugares = data['lugares']
+                    for (const lugar of lugares) {
+                        console.log(document.getElementsByClassName(`${lugar.nombre}`)[0]);
+                        let info = document.getElementsByClassName(`${lugar.nombre}`)[0].children[1].children
+                        for (const datos of info) {
+                            switch (datos.className) {
+                                case "temperatura":
+                                    info[0].getElementsByTagName('p')[0].innerHTML = lugar.temperatura
+                                    break;
+                                case "humedad":
+                                    info[1].getElementsByTagName('p')[0].innerHTML = lugar.humedad
+                                    break;
+                                case "precipitacion":
+                                    info[2].getElementsByTagName('p')[0].innerHTML = lugar.precipitacion
+                                    break;
+                                case "viento":
+                                    info[3].getElementsByTagName('p')[0].innerHTML = lugar.viento
+                                    break;
+                            }
+                        }
+                    }
+                })
         }
 
         verLocalStorage()
