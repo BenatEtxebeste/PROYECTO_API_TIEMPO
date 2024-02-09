@@ -26,6 +26,12 @@ services:
     - DB_DATABASE=Benat
     ports:
     - "8085:8000"
+    depends_on:
+            mysql:
+                condition: service_healthy
+
+    command: ["sh", "-c", "php artisan migrate && php artisan passport:install --force && php artisan serve --host=0.0.0.0"]
+
 
   CapturaDatos:
     image: docker.io/bitnami/laravel:10
@@ -40,6 +46,10 @@ services:
     ports:
     - "8086:8000"
     command: ["php", "artisan", "schedule:work"]
+    depends_on:
+            mysql:
+                condition: service_healthy
+
 
   mysql:
     image: mysql:latest
@@ -54,6 +64,12 @@ services:
       - '3306'
     volumes:
       - './BBDD/:/var/lib/mysql'
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+      start_period: 10s
+      timeout: 5s
   phpmyadmin:
         image: 'phpmyadmin:latest'
         ports:
