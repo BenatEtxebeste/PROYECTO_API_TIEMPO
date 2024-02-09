@@ -23,17 +23,7 @@ class LugarController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nombre' => 'required',
-            'latitud' => 'required',
-            'longitud' => 'required',
-            'temperatura' => 'required',
-            'humedad' => 'required',
-            'precipitacion' => 'required',
-            'viento' => 'required',
-        ]);
-
-        Lugar::create($request->all());
+        
     }
 
     /**
@@ -49,20 +39,7 @@ class LugarController extends Controller
      */
     public function update(Request $request)
     {
-        $nombre = $request->input('nombre');
-
-        $lugar = Lugar::where('nombre', $nombre)->first();
-
-        if (!$lugar) {
-            return response()->json(['mensaje' => 'Lugar no encontrado'], 404);
-        }
-
-        $lugar->temperatura = $request->input('temperatura');
-        $lugar->humedad = $request->input('humedad');
-        $lugar->precipitacion = $request->input('precipitacion');
-        $lugar->viento = $request->input('viento');
-
-        $lugar->save();
+        
     }
 
     /**
@@ -147,9 +124,9 @@ class LugarController extends Controller
 
         foreach ($lugares as $lugar) {
             $lugar -> temperatura = + $lugar -> temperatura + mt_rand(-1, 1);
-            $lugar -> humedad = $lugar -> temperatura + mt_rand(-1, 1);
-            $lugar -> precipitacion = $lugar -> temperatura + mt_rand(-1, 1);
-            $lugar -> viento = $lugar -> temperatura + mt_rand(-1, 1);
+            $lugar -> humedad = $lugar -> humedad + mt_rand(-1, 1);
+            $lugar -> precipitacion = $lugar -> precipitacion + mt_rand(-1, 1);
+            $lugar -> viento = $lugar -> viento + mt_rand(-1, 1);
             $lugar -> save();
         }
     }

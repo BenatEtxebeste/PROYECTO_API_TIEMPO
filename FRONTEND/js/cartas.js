@@ -1,5 +1,5 @@
 
-fetch("http://localhost:8085/api/select")
+fetch("http://"+ip+":8085/api/select")
     .then(response => {
         if (!response.ok) {
             throw new Error("La solicitud no se pudo completar correctamente.");
@@ -19,11 +19,11 @@ fetch("http://localhost:8085/api/select")
                             <div class="informacion">
                                 <div class="temperatura">
                                     <img src="imagenes/temperatura.png" alt="">
-                                    <p class="datoTemperatura">${lugar.temperatura}</p>
+                                    <p class="datoTemperatura">${lugar.temperatura}º</p>
                                 </div>
                                 <div class="humedad">
                                     <img src="imagenes/humedad.png" alt="">
-                                    <p class="datoHumedad">${lugar.humedad}</p>
+                                    <p class="datoHumedad">${lugar.humedad}%</p>
                                 </div>
                             </div>
                             <button onclick="crearGrafico('myChart-${lugar.nombre}')">GRAFICO</button>
@@ -95,7 +95,7 @@ fetch("http://localhost:8085/api/select")
                         contenidoCard += `
                             <div class="precipitacion">
                                 <img src="imagenes/precipitacion.png" alt="">
-                                <p class="datoPrecipitacion">${lugarCarta.precipitacion}</p>
+                                <p class="datoPrecipitacion">${lugarCarta.precipitacion} mm</p>
                             </div>`
                     }
                     break;
@@ -104,7 +104,7 @@ fetch("http://localhost:8085/api/select")
                         contenidoCard += `
                             <div class="viento">
                                 <img src="imagenes/viento.png" alt="">
-                                <p class="datoViento">${lugarCarta.viento}</p>
+                                <p class="datoViento">${lugarCarta.viento} km/h</p>
                             </div>`
                     }
                     break;
@@ -114,12 +114,12 @@ fetch("http://localhost:8085/api/select")
             info.innerHTML = contenidoCard
         }
 
-        // setInterval(() => {
+        setInterval(() => {
             actualizarDatos()
-        // },3000);
+        },3000);
 
         function actualizarDatos() {
-            fetch("http://localhost:8085/api/select")
+            fetch("http://"+ip+":8085/api/select")
                 .then(response => {
                     if (!response.ok) {
                         throw new Error("La solicitud no se pudo completar correctamente.");
@@ -129,21 +129,20 @@ fetch("http://localhost:8085/api/select")
                 .then(data => {
                     lugares = data['lugares']
                     for (const lugar of lugares) {
-                        console.log(document.getElementsByClassName(`${lugar.nombre}`)[0]);
                         let info = document.getElementsByClassName(`${lugar.nombre}`)[0].children[1].children
                         for (const datos of info) {
                             switch (datos.className) {
                                 case "temperatura":
-                                    info[0].getElementsByTagName('p')[0].innerHTML = lugar.temperatura
+                                    datos.getElementsByTagName('p')[0].innerHTML = `${lugar.temperatura}º`
                                     break;
                                 case "humedad":
-                                    info[1].getElementsByTagName('p')[0].innerHTML = lugar.humedad
+                                    datos.getElementsByTagName('p')[0].innerHTML = `${lugar.humedad}%`
                                     break;
                                 case "precipitacion":
-                                    info[2].getElementsByTagName('p')[0].innerHTML = lugar.precipitacion
+                                    datos.getElementsByTagName('p')[0].innerHTML = `${lugar.precipitacion} mm`
                                     break;
                                 case "viento":
-                                    info[3].getElementsByTagName('p')[0].innerHTML = lugar.viento
+                                    datos.getElementsByTagName('p')[0].innerHTML = `${lugar.viento} km/h`
                                     break;
                             }
                         }

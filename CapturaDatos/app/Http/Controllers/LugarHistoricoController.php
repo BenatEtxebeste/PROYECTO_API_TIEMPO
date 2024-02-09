@@ -23,15 +23,7 @@ class LugarHistoricoController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nombre' => 'required',
-            'fecha' => 'required',
-            'temperatura' => 'required',
-            'humedad' => 'required',
-            'id_lugar' => 'required'
-        ]);
-
-        LugarHistorico::create($request->all());
+        
     }
 
     /**

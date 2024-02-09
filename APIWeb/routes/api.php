@@ -19,9 +19,8 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-Route::get('historico/select', [LugarHistoricoController::class, 'index']);
-
 Route::get('select', [LugarController::class, 'index']);
+Route::get('historico/select', [LugarHistoricoController::class, 'index']);
 
 Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [RegisterController::class, 'login']);

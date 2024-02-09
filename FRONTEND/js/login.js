@@ -1,4 +1,4 @@
-
+let ip = (new URL(window.location.origin)).hostname;
 function SignIn(event) {
     event.preventDefault()
 
@@ -17,7 +17,7 @@ function SignIn(event) {
         body: JSON.stringify(datos)
     }
 
-    fetch("http://localhost:8085/api/register", config)
+    fetch("http://"+ip+":8085/api/register", config)
         .then(response => {
             if (!response.ok) {
                 throw new Error("La solicitud no se pudo completar correctamente.");
@@ -45,7 +45,7 @@ function LogIn(event) {
         },
         body: JSON.stringify(datos)
     }
-    fetch("http://localhost:8085/api/login", config)
+    fetch("http://"+ip+":8085/api/login", config)
         .then(response => {
             if (!response.ok) {
                 throw new Error("La solicitud no se pudo completar correctamente.");
@@ -69,7 +69,7 @@ function LogOut(event) {
             'Authorization': `Bearer ${localStorage.getItem("token")}`
         },
     }
-    fetch("http://localhost:8085/api/logout", config)
+    fetch("http://"+ip+":8085/api/logout", config)
     localStorage.removeItem("token")
-    window.location.assign("login.html")
+    window.location.assign("index.html")
 }

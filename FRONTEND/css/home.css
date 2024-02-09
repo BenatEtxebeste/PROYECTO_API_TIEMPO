@@ -1,5 +1,10 @@
-*{
+
+* {
     margin: 0;
+}
+
+body {
+    background-color: rgb(92, 91, 91);
 }
 
 header {
@@ -16,6 +21,7 @@ header {
 
 .logo {
     display: inline-block;
+
     img {
         width: 50px;
     }
@@ -23,6 +29,7 @@ header {
 
 .nombre {
     display: inline-block;
+
     a {
         text-decoration: none;
         color: white;
@@ -31,6 +38,7 @@ header {
 
 .logout {
     display: inline-block;
+
     a {
         text-decoration: none;
         border: 1px solid black;
@@ -45,7 +53,6 @@ section {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: rgb(92, 91, 91);
 }
 
 #containerMapa {
@@ -70,13 +77,15 @@ section {
     border-top: 1px solid black;
     border-bottom: 1px solid black;
     padding: 5px 15px;
+
     img {
         width: 40px;
         margin: 0 10px;
+        cursor: grab;
     }
 }
 
-#carousel{
+#carousel {
     margin: 30px 0;
     display: flex;
     justify-content: center;
@@ -85,18 +94,70 @@ section {
 
 .card {
     border: 1px solid black;
+    border-radius: 7px;
     width: 250px;
     margin: 0 10px;
     padding: 15px;
-    display: inline-block;
-    img {
-        width: 30px;
-        display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #898484;
+
+    .cardTitle {
+        text-align: center;
+        margin-bottom: 10px;
+
+        h1 {
+            text-transform: uppercase;
+            margin: 0;
+        }
     }
-    p{
-        display: inline-block;
+
+    .informacion {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .temperatura,
+        .humedad,
+        .precipitacion,
+        .viento {
+            flex: 1;
+            text-align: center;
+            img {
+                width: 30px;
+                display: inline-block;
+                cursor: grab;
+            }
+
+            p {
+                display: inline-block;
+                margin: 0;
+            }
+        }
     }
-    h1{
-        text-transform: uppercase;
+
+    button {
+        align-self: center;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
     }
+
+    button:hover {
+        background-color: #45a049;
+    }
+}
+
+.card:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease-in-out;
 }
