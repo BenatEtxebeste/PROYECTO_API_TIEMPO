@@ -4,14 +4,14 @@
 }
 
 body {
-    background-color: rgb(92, 91, 91);
+    background-color: #99bbd2;
 }
 
 header {
     position: fixed;
     width: 95%;
     height: 50px;
-    background-color: grey;
+    background-color: cornflowerblue;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -102,7 +102,7 @@ section {
     flex-direction: column;
     align-items: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #898484;
+    background-color: cornflowerblue;
 
     .cardTitle {
         text-align: center;
@@ -140,7 +140,7 @@ section {
 
     button {
         align-self: center;
-        background-color: #4caf50;
+        background-color: #04AA6D;
         color: white;
         border: none;
         padding: 8px 12px;

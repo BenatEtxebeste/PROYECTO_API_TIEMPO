@@ -5,8 +5,8 @@ function SignIn(event) {
     const datos = {
         name: document.getElementById('inputNombre').value,
         email: document.getElementById('inputEmail').value,
-        password: document.getElementById('inputContraseña').value,
-        c_password: document.getElementById('inputConfContraseña').value
+        password: document.getElementById('inputContrasena').value,
+        c_password: document.getElementById('inputConfContrasena').value
     }
 
     let config = {
@@ -25,7 +25,7 @@ function SignIn(event) {
             return response.json();
         })
         .then(data => {
-            window.location.assign("login.html")
+            window.location.assign("index.html")
         })
         .catch(error => console.log(error))
 }
@@ -35,7 +35,7 @@ function LogIn(event) {
 
     const datos = {
         name: document.getElementById('inputNombre').value,
-        password: document.getElementById('inputContraseña').value
+        password: document.getElementById('inputContrasena').value
     };
 
     let config = {

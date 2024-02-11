@@ -10,15 +10,22 @@
 </head>
 
 <body>
-    <div class="formulario">
-        <form>
-            <label for="inputNombre">Nombre:</label><br>
-            <input type="text" name="nombre" id="inputNombre" required><br>
-            <label for="inputContraseña">Contraseña:</label><br>
-            <input type="password" name="contraseña" id="inputContraseña" required><br>
-            <input type="submit" onclick="LogIn(event)" value="INICIAR SESIÓN">
-        </form>
-    </div>
+    <form>
+        <div class="imgcontainer">
+            <img src="imagenes/logo.png" alt="Avatar" class="avatar">
+        </div>
+        <div class="container">
+            <label for="uname"><b>Usuario:</b></label>
+            <input id="inputNombre" type="text" placeholder="Introduce Usuario" name="uname" required>
+
+            <label for="psw"><b>Contraseña:</b></label>
+            <input id="inputContrasena" type="password" placeholder="Introduce Contraseña" name="psw" required>
+
+            <button type="submit" onclick="LogIn(event)">Login</button>
+            <div class="registercontainer">
+                <span class="register"><a href="register.html">Registrarse</a></span>
+            </div>
+        </div>
 </body>
 
 </html>

@@ -34,8 +34,8 @@ function mostrarTooltip() {
                     return response.json();
                 })
                 .then(data => {
-                    console.log(carta);
                     prediccion = data.forecastText["SPANISH"]
+                    console.log(prediccion);
                     carta.title = prediccion;
                 });
         }
