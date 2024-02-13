@@ -95,7 +95,7 @@ fetch("http://"+ip+":8085/api/select")
                         contenidoCard += `
                             <div class="precipitacion">
                                 <img src="imagenes/precipitacion.png" alt="">
-                                <p class="datoPrecipitacion">${lugarCarta.precipitacion} mm</p>
+                                <p class="datoPrecipitacion">${Math.max(lugarCarta.precipitacion, 0)} mm</p>
                             </div>`
                     }
                     break;
@@ -104,7 +104,7 @@ fetch("http://"+ip+":8085/api/select")
                         contenidoCard += `
                             <div class="viento">
                                 <img src="imagenes/viento.png" alt="">
-                                <p class="datoViento">${lugarCarta.viento} km/h</p>
+                                <p class="datoViento">${Math.max(lugarCarta.viento, 0)} km/h</p>
                             </div>`
                     }
                     break;
@@ -139,10 +139,10 @@ fetch("http://"+ip+":8085/api/select")
                                     datos.getElementsByTagName('p')[0].innerHTML = `${lugar.humedad}%`
                                     break;
                                 case "precipitacion":
-                                    datos.getElementsByTagName('p')[0].innerHTML = `${lugar.precipitacion} mm`
+                                    datos.getElementsByTagName('p')[0].innerHTML = `${Math.max(lugar.precipitacion, 0)} mm`
                                     break;
                                 case "viento":
-                                    datos.getElementsByTagName('p')[0].innerHTML = `${lugar.viento} km/h`
+                                    datos.getElementsByTagName('p')[0].innerHTML = `${Math.max(lugar.viento, 0)} km/h`
                                     break;
                             }
                         }
